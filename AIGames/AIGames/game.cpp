@@ -4,9 +4,16 @@
 #include "game.h"
 #include "function.h"
 
+#include "player.h"
+
 //コンストラクタ
 CGame::CGame(CManager* p) :CScene(p){
+	map = new CMap();
 
+	map->LoadMap();
+	map->MapCreation(base);
+
+	base.emplace_back((unique_ptr<BaseVector>)new CPlayer());
 }
 
 //更新処理
