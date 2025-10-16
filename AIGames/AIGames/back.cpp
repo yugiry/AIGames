@@ -1,6 +1,6 @@
 #include "back.h"
 
-CBack::CBack(Point p, int _No, int _img, int _ID)
+CBack::CBack(Point p, int _No, int _img)
 {
 	pos = p;
 
@@ -9,18 +9,19 @@ CBack::CBack(Point p, int _No, int _img, int _ID)
 
 	No = _No;
 	img = _img;
-	ID = _ID;
 
-	if (No == 1)
+	if (No == 2 || No == 6 || No == 7)
 	{
-		CutX = BLOCK_WIDTH;
-		CutY = 0;
+		ID = WALL;
 	}
-	if (No == 2)
+	else
 	{
-		CutX = BLOCK_WIDTH * 2;
-		CutY = 0;
+		ID = GROUND;
 	}
+
+	CutX = BLOCK_WIDTH * (No % 8);
+	CutY = BLOCK_HEIGHT * (No / 8);
+
 
 	pri = 0;
 }

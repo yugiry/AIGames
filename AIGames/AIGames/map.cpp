@@ -15,7 +15,7 @@ void CMap::LoadMap()
 {
 	int i, j;
 	//データロード
-	ifstream fromFile("map\\map.txt");
+	ifstream fromFile("map\\map.csv");
 	//ファイルがあるかどうかチェック
 	if (!fromFile)
 		return;
@@ -39,7 +39,7 @@ void CMap::LoadMap()
 			string num_str = data.substr(0, num_end);//数字を取得
 			//数字を数値にしてmapに入れる
 			ss = istringstream(num_str);
-			ss >> map[j + i * MAP_WIDTH];
+			ss >> map[0][j + i * MAP_WIDTH];
 			//"数字,"までを削除
 			data = data.erase(0, num_end + 1);
 			j++;
@@ -48,24 +48,14 @@ void CMap::LoadMap()
 	}
 }
 
-void CMap::MapCreation(vector<unique_ptr<BaseVector>>& base)
+void CMap::MapCreation(vector<unique_ptr<BaseVector>>& base, int map_num)
 {
 	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
 		for (int x = 0; x < MAP_WIDTH; x++)
 		{
 			Point p{ x * BLOCK_WIDTH,y * BLOCK_HEIGHT };
-			switch (map[x + y * MAP_WIDTH])
-			{
-			case 0:
-				break;
-			case 1:
-				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[x + y * MAP_WIDTH], img, GROUND));
-				break;
-			case 2:
-				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[x + y * MAP_WIDTH], img, WALL));
-				break;
-			}
+			base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
 		}
 	}
 }

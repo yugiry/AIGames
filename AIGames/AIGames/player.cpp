@@ -1,5 +1,6 @@
 #pragma once
 #include "player.h"
+#include "function.h"
 
 int SPEED = 4.0f;
 
@@ -33,6 +34,29 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 	if (CheckHitKey(KEY_INPUT_S))vec.y = SPEED;
 	if (CheckHitKey(KEY_INPUT_A))vec.x = -SPEED;
 	if (CheckHitKey(KEY_INPUT_D))vec.x = SPEED;
+
+	for (auto i = base.begin(); i != base.end(); i++)
+	{
+		if ((*i)->ID == WALL)
+		{
+			Point late{ pos.x + vec.x,pos.y };
+			if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
+			{
+				vec.x = 0;
+			}
+		}
+	}
+	for (auto i = base.begin(); i != base.end(); i++)
+	{
+		if ((*i)->ID == WALL)
+		{
+			Point late{ pos.x,pos.y + vec.y };
+			if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
+			{
+				vec.y = 0;
+			}
+		}
+	}
 
 	pos.x += vec.x;
 	pos.y += vec.y;

@@ -11,7 +11,7 @@ CGame::CGame(CManager* p) :CScene(p){
 	map = new CMap();
 
 	map->LoadMap();
-	map->MapCreation(base);
+	map->MapCreation(base, 0);
 
 	base.emplace_back((unique_ptr<BaseVector>)new CPlayer());
 }

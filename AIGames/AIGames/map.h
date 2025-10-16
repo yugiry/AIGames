@@ -9,9 +9,9 @@ public:
 
 	void LoadMap();
 
-	void MapCreation(vector<unique_ptr<BaseVector>>&);
+	void MapCreation(vector<unique_ptr<BaseVector>>&, int);
 
 	int img{ -1 };
 
-	int map[MAP_WIDTH * MAP_HEIGHT];
+	int map[6][MAP_WIDTH * MAP_HEIGHT];
 };
