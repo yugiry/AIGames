@@ -13,9 +13,9 @@ CMap::CMap()
 
 void CMap::LoadMap()
 {
-	int i, j;
+	int i, j, k;
 	//データロード
-	ifstream fromFile("map\\map.csv");
+	ifstream fromFile("map\\fmap.txt");
 	//ファイルがあるかどうかチェック
 	if (!fromFile)
 		return;
@@ -31,20 +31,30 @@ void CMap::LoadMap()
 		//ファイルから一行分列のdataに格納
 		getline(fromFile, data);
 		data.insert(data.size(), ",");//行の端末に","をつける
-		//取得した行から数字を取得
-		while (data.size())
+		//行の最初が'#'なら
+		if (data[0] == '#')
 		{
-			//セルの","までの文字数を探す
-			int num_end = data.find(",");
-			string num_str = data.substr(0, num_end);//数字を取得
-			//数字を数値にしてmapに入れる
-			ss = istringstream(num_str);
-			ss >> map[0][j + i * MAP_WIDTH];
-			//"数字,"までを削除
-			data = data.erase(0, num_end + 1);
-			j++;
+			char num = data[1];
+			k = num - '0';
+			i = 0;
 		}
-		i++;
+		else
+		{
+			//取得した行から数字を取得
+			while (data.size())
+			{
+				//セルの","までの文字数を探す
+				int num_end = data.find(",");
+				string num_str = data.substr(0, num_end);//数字を取得
+				//数字を数値にしてmapに入れる
+				ss = istringstream(num_str);
+				ss >> map[k][j + i * MAP_WIDTH];
+				//"数字,"までを削除
+				data = data.erase(0, num_end + 1);
+				j++;
+			}
+			i++;
+		}
 	}
 }
 

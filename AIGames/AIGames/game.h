@@ -24,6 +24,8 @@ public:
 	int Update();//更新処理
 	void Draw();//描画処理
 
+	int map_num{ 1 };
+
 	CMap* map;
 
 	//CCamera* camera;//カメラオブジェクト

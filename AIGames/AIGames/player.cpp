@@ -35,25 +35,54 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 	if (CheckHitKey(KEY_INPUT_A))vec.x = -SPEED;
 	if (CheckHitKey(KEY_INPUT_D))vec.x = SPEED;
 
-	for (auto i = base.begin(); i != base.end(); i++)
+	//“–‚½‚è”»’è
 	{
-		if ((*i)->ID == WALL)
+		//‚wŽ²‚Ì“–‚½‚è”»’è
 		{
 			Point late{ pos.x + vec.x,pos.y };
-			if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
+			for (auto i = base.begin(); i != base.end(); i++)
 			{
-				vec.x = 0;
+				if ((*i)->ID == WALL)
+				{
+
+					if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
+					{
+						vec.x = 0;
+					}
+				}
+			}
+		}
+		//‚xŽ²‚Ì“–‚½‚è”»’è
+		{
+			Point late{ pos.x,pos.y + vec.y };
+			for (auto i = base.begin(); i != base.end(); i++)
+			{
+				if ((*i)->ID == WALL)
+				{
+
+					if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
+					{
+						vec.y = 0;
+					}
+				}
 			}
 		}
 	}
+	//‰æ–ÊƒXƒNƒ[ƒ‹‚Ì“–‚½‚è”»’è
 	for (auto i = base.begin(); i != base.end(); i++)
 	{
-		if ((*i)->ID == WALL)
+		if ((*i)->ID == WGROUND)
 		{
-			Point late{ pos.x,pos.y + vec.y };
-			if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
+			if (HitCheck_box(pos.x, pos.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
 			{
-				vec.y = 0;
+				if (pos.x + vec.x < 0)
+				{
+					return 1;
+				}
+				if (pos.x + vec.x > WINDOW_WIDTH - ImgWidth)
+				{
+					return 2;
+				}
 			}
 		}
 	}

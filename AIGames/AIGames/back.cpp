@@ -10,9 +10,13 @@ CBack::CBack(Point p, int _No, int _img)
 	No = _No;
 	img = _img;
 
-	if (No == 2 || No == 6 || No == 7)
+	if (No == 0 || No == 2 || No == 3 || No == 6 || No == 7)
 	{
 		ID = WALL;
+	}
+	else if (No == 1)
+	{
+		ID = WGROUND;
 	}
 	else
 	{

@@ -11,7 +11,7 @@ CGame::CGame(CManager* p) :CScene(p){
 	map = new CMap();
 
 	map->LoadMap();
-	map->MapCreation(base, 0);
+	map->MapCreation(base, map_num);
 
 	base.emplace_back((unique_ptr<BaseVector>)new CPlayer());
 }
@@ -20,7 +20,19 @@ CGame::CGame(CManager* p) :CScene(p){
 int CGame::Update(){
 	//XVˆ—
 	for (int i = 0; i < base.size(); i++)
-		base[i]->Action(base);
+		switch (base[i]->Action(base))
+		{
+		case 1://¶‚É‰æ–Ê‚ğ“®‚©‚µ‚½‚Æ‚«
+			if (map_num != 3)map_num--;
+			if (map_num < 0)map_num = 0;
+			map->MapCreation(base, map_num);
+			break;
+		case 2://‰E‚É‰æ–Ê‚ğ“®‚©‚µ‚½‚Æ‚«
+			if (map_num != 2)map_num++;
+			if (map_num > 5)map_num = 5;
+			map->MapCreation(base, map_num);
+			break;
+		}
 
 	//íœˆ—
 	for (auto i = base.begin(); i != base.end();)

@@ -47,6 +47,7 @@ struct Vector3 {
 	 PLAYER,
 	 WALL,
 	 GROUND,
+	 WGROUND,
  };
 
 //ƒJƒƒ‰î•ñƒNƒ‰ƒX(main.h)
