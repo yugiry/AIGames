@@ -32,6 +32,14 @@ int CGame::Update(){
 			if (map_num > 5)map_num = 5;
 			map->MapCreation(base, map_num);
 			break;
+		case 3:
+			map_num += 3;
+			map->MapCreation(base, map_num);
+			break;
+		case 4:
+			map_num -= 3;
+			map->MapCreation(base, map_num);
+			break;
 		}
 
 	//削除処理
@@ -50,33 +58,14 @@ int CGame::Update(){
 
 //描画処理
 void CGame::Draw()
-{
-	//オブジェクト個数
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "Object_Count = %d", base.size());
-	
+{	
 	for (int i = 0; i < base.size(); i++)
 		if(base[i]->FLAG) base[i]->Draw();
 
-	//listオブジェクトの描画
-	//for (auto i = base.begin(); i != base.end(); i++)
-	//	if ((*i)->FLAG) (*i)->Draw();
+	//オブジェクト個数
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "Object_Count = %d", base.size());
 
-	//3D軸の描画
-	//DrawLine3D(
-	//	VGet(0, 0, 0),
-	//	VGet(0, 0, 100),
-	//	0x0000ff
-	//);
-	//DrawLine3D(
-	//	VGet(0, 0, 0),
-	//	VGet(100, 0, 0),
-	//	0xff0000
-	//);
-	//DrawLine3D(
-	//	VGet(0, 0, 0),
-	//	VGet(0, 100, 0),
-	//	0x00ff00
-	//);
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "%d", map_num);
 }
 
 CGame::~CGame()

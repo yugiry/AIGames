@@ -60,11 +60,21 @@ void CMap::LoadMap()
 
 void CMap::MapCreation(vector<unique_ptr<BaseVector>>& base, int map_num)
 {
+	img = LoadGraph("image\\map_img.png");
+
+	for(auto i = base.begin();i!=base.end();i++)
+		if ((*i)->ID != PLAYER)
+		{
+			(*i)->FLAG = false; (*i)->ID = -1;
+		}
+
 	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
 		for (int x = 0; x < MAP_WIDTH; x++)
 		{
 			Point p{ x * BLOCK_WIDTH,y * BLOCK_HEIGHT };
+			if (map[map_num][x + y * MAP_WIDTH] == 18)
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 1, img));
 			base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
 		}
 	}

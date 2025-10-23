@@ -45,9 +45,13 @@ struct Vector3 {
  enum ID
  {
 	 PLAYER,
+	 DARK,
 	 WALL,
 	 GROUND,
 	 WGROUND,
+	 USTAIR,
+	 DSTAIR,
+	 FON,
  };
 
 //ƒJƒƒ‰î•ñƒNƒ‰ƒX(main.h)
