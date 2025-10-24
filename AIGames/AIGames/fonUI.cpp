@@ -14,6 +14,12 @@ CFonUI::CFonUI()
 
 int CFonUI::Action(vector<unique_ptr<BaseVector>>& base)
 {
+	if (CheckHitKey(KEY_INPUT_F) && !push_f)
+	{
+		FLAG = false;
+	}
+	push_f = CheckHitKey(KEY_INPUT_F);
+
 	return 0;
 }
 

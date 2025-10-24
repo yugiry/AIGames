@@ -157,6 +157,7 @@
     <ClInclude Include="back.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="2D_function.h" />
+    <ClInclude Include="door.h" />
     <ClInclude Include="fonUI.h" />
     <ClInclude Include="function.h" />
     <ClInclude Include="game.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="back.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="2D_function.cpp" />
+    <ClCompile Include="door.cpp" />
     <ClCompile Include="fonUI.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="library_function.cpp" />

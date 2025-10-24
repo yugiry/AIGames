@@ -52,6 +52,8 @@ struct Vector3 {
 	 USTAIR,
 	 DSTAIR,
 	 FON,
+	 DOOR,
+	 DESKS,
  };
 
 //ƒJƒƒ‰î•ñƒNƒ‰ƒX(main.h)

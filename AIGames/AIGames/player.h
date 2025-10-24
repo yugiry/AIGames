@@ -13,4 +13,5 @@ public:
 	int now_scene{ 1 };
 
 	bool open_UI{ false };
+	bool push_f{ false };
 };

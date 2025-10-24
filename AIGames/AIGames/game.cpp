@@ -32,12 +32,48 @@ int CGame::Update(){
 			if (map_num > 5)map_num = 5;
 			map->MapCreation(base, map_num);
 			break;
-		case 3:
+		case 3://ŠK’i(ã‚é)
 			map_num += 3;
 			map->MapCreation(base, map_num);
 			break;
-		case 4:
+		case 4://ŠK’i(‰º‚é)
 			map_num -= 3;
+			map->MapCreation(base, map_num);
+			break;
+		case 7://‹³º‚P
+			map_num = 8;
+			map->MapCreation(base, map_num);
+			break;
+		case 8://‹³º‚Q
+			map_num = 9;
+			map->MapCreation(base, map_num);
+			break;
+		case 9://‹³º‚©‚ç“ñŠK˜L‰º¶‚É
+			map_num = 3;
+			map->MapCreation(base, map_num);
+			break;
+		case 10://‹³º‚©‚ç“ñŠK˜L‰º^‚ñ’†‚É
+			map_num = 4;
+			map->MapCreation(base, map_num);
+			break;
+		case 11://‹³º‚©‚ç“ñŠK˜L‰º‰E‚É
+			map_num = 5;
+			map->MapCreation(base, map_num);
+			break;
+		case 5://¶Eˆõº
+			map_num = 6;
+			map->MapCreation(base, map_num);
+			break;
+		case 6://‰EEˆõº
+			map_num = 7;
+			map->MapCreation(base, map_num);
+			break;
+		case 12://¶Eˆõº‚©‚çˆêŠK˜L‰º¶‚É
+			map_num = 0;
+			map->MapCreation(base, map_num);
+			break;
+		case 13://‰EEˆõº‚©‚çˆêŠK˜L‰º‰E‚É
+			map_num = 2;
 			map->MapCreation(base, map_num);
 			break;
 		}

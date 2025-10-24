@@ -2,6 +2,7 @@
 #include "map.h"
 
 #include "back.h"
+#include "door.h"
 
 #include <fstream>
 #include <sstream>
@@ -73,9 +74,26 @@ void CMap::MapCreation(vector<unique_ptr<BaseVector>>& base, int map_num)
 		for (int x = 0; x < MAP_WIDTH; x++)
 		{
 			Point p{ x * BLOCK_WIDTH,y * BLOCK_HEIGHT };
-			if (map[map_num][x + y * MAP_WIDTH] == 18)
-				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 1, img));
-			base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
+			if (map[map_num][x + y * MAP_WIDTH] == 11 || map[map_num][x + y * MAP_WIDTH] == 12)
+			{
+				base.emplace_back((unique_ptr<BaseVector>)new CDoor(p, map[map_num][x + y * MAP_WIDTH], map_num));
+			}
+			else if (map[map_num][x + y * MAP_WIDTH] == 25 || map[map_num][x + y * MAP_WIDTH] == 21)
+			{
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 20, img));
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
+			}
+			else if (map[map_num][x + y * MAP_WIDTH] == 24)
+			{
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 19, img));
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
+			}
+			else
+			{
+				if (map[map_num][x + y * MAP_WIDTH] == 18)
+					base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 1, img));
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
+			}
 		}
 	}
 }

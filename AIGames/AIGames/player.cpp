@@ -42,6 +42,14 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 		if (CheckHitKey(KEY_INPUT_A))vec.x = -SPEED;
 		if (CheckHitKey(KEY_INPUT_D))vec.x = SPEED;
 	}
+	else
+	{
+		if (CheckHitKey(KEY_INPUT_F) && !push_f)
+		{
+			open_UI = false;
+			push_f = true;
+		}
+	}
 
 	//画面スクロールの当たり判定
 	for (auto i = base.begin(); i != base.end(); i++)
@@ -108,11 +116,50 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 		{
 			if (HitCheck_box(pos.x - ImgWidth / 2, pos.y - ImgHeight / 2, (*i)->pos.x, (*i)->pos.y, ImgWidth * 2, ImgHeight * 2, (*i)->ImgWidth, (*i)->ImgHeight))
 			{
-				if (CheckHitKey(KEY_INPUT_F))
+				if (CheckHitKey(KEY_INPUT_F) && !push_f)
 				{
 					//黒電話UIの表示
 					base.emplace_back((unique_ptr<BaseVector>)new CFonUI());
 					open_UI = true;
+				}
+				push_f = CheckHitKey(KEY_INPUT_F);
+			}
+		}
+		if ((*i)->ID == DOOR)
+		{
+			if (HitCheck_box(pos.x + vec.x, pos.y + vec.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight))
+			{
+				if ((*i)->vec.x == 1)
+				{
+					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 448; return 5; }
+					if ((*i)->vec.y == 2) { return 12; }
+				}
+				if ((*i)->vec.x == 2)
+				{
+					if ((*i)->vec.y == 1) { pos.x = 448; pos.y = 448; return 6; }
+					if ((*i)->vec.y == 2) { return 13; }
+				}
+				if ((*i)->vec.x == 3)
+				{
+					if ((*i)->vec.y == 1) { pos.x = 96; pos.y = 384; }
+					if ((*i)->vec.y == 2) { pos.x = 544; pos.y = 384; }
+					return 7;
+				}
+				if ((*i)->vec.x == 4)
+				{
+					if ((*i)->vec.y == 1) { pos.x = 96; pos.y = 384; }
+					if ((*i)->vec.y == 2) { pos.x = 544; pos.y = 384; }
+					return 8;
+				}
+				if ((*i)->vec.x == 5)
+				{
+					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 256; return 9; }
+					if ((*i)->vec.y == 2) { pos.x = 256; pos.y = 256; return 10; }
+				}
+				if ((*i)->vec.x == 6)
+				{
+					if ((*i)->vec.y == 1) { pos.x = 416; pos.y = 256; return 10; }
+					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; return 11; }
 				}
 			}
 		}
@@ -124,7 +171,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 			Point late{ pos.x + vec.x,pos.y };
 			for (auto i = base.begin(); i != base.end(); i++)
 			{
-				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID==FON)
+				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID == FON || (*i)->ID == DOOR || (*i)->ID == DESKS)
 				{
 
 					if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
@@ -139,7 +186,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 			Point late{ pos.x,pos.y + vec.y };
 			for (auto i = base.begin(); i != base.end(); i++)
 			{
-				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID==FON)
+				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID == FON || (*i)->ID == DOOR || (*i)->ID == DESKS)
 				{
 
 					if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))

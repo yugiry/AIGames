@@ -9,6 +9,7 @@ CBack::CBack(Point p, int _No, int _img)
 
 	No = _No;
 	img = _img;
+	pri = 0;
 
 	if (No == 0)
 	{
@@ -35,6 +36,11 @@ CBack::CBack(Point p, int _No, int _img)
 		ID = FON;
 		pri = 1;
 	}
+	else if (No == 21 || No == 24 || No == 25)
+	{
+		ID = DESKS;
+		pri = 1;
+	}
 	else
 	{
 		ID = GROUND;
@@ -42,9 +48,6 @@ CBack::CBack(Point p, int _No, int _img)
 
 	CutX = BLOCK_WIDTH * (No % 8);
 	CutY = BLOCK_HEIGHT * (No / 8);
-
-
-	pri = 0;
 }
 
 int CBack::Action(vector<unique_ptr<BaseVector>>& base)

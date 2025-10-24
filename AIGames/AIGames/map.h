@@ -13,5 +13,5 @@ public:
 
 	int img{ -1 };
 
-	int map[6][MAP_WIDTH * MAP_HEIGHT];
+	int map[10][MAP_WIDTH * MAP_HEIGHT];
 };
