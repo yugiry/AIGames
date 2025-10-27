@@ -36,7 +36,7 @@ CBack::CBack(Point p, int _No, int _img)
 		ID = FON;
 		pri = 1;
 	}
-	else if (No == 21 || No == 24 || No == 25)
+	else if (No == 21 || No == 24 || No == 25 || No == 26 || No == 27)
 	{
 		ID = DESKS;
 		pri = 1;

@@ -90,7 +90,7 @@ void CMap::MapCreation(vector<unique_ptr<BaseVector>>& base, int map_num)
 			}
 			else
 			{
-				if (map[map_num][x + y * MAP_WIDTH] == 18)
+				if (map[map_num][x + y * MAP_WIDTH] == 18 || map[map_num][x + y * MAP_WIDTH] == 26 || map[map_num][x + y * MAP_WIDTH] == 27)
 					base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 1, img));
 				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
 			}

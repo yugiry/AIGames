@@ -61,14 +61,12 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 				if (pos.x + vec.x < 0)
 				{
 					if (now_scene != 3)now_scene--;
-					if (now_scene < 0)now_scene = 0;
 					pos.x = WINDOW_WIDTH - ImgWidth * 2;
 					return 1;
 				}
 				if (pos.x + vec.x > WINDOW_WIDTH - ImgWidth)
 				{
 					if (now_scene != 2)now_scene++;
-					if (now_scene > 5)now_scene = 5;
 					pos.x = ImgWidth;
 					return 2;
 				}
@@ -132,12 +130,12 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 				if ((*i)->vec.x == 1)
 				{
 					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 448; return 5; }
-					if ((*i)->vec.y == 2) { return 12; }
+					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; return 12; }
 				}
 				if ((*i)->vec.x == 2)
 				{
 					if ((*i)->vec.y == 1) { pos.x = 448; pos.y = 448; return 6; }
-					if ((*i)->vec.y == 2) { return 13; }
+					if ((*i)->vec.y == 2) { pos.x = 192; pos.y = 256; return 13; }
 				}
 				if ((*i)->vec.x == 3)
 				{
