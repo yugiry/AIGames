@@ -74,6 +74,8 @@ int CGame::Update(){
 			map_num = 2;
 			map->MapCreation(base, map_num);
 			break;
+		case 20://ゲームクリア
+			break;
 		}
 
 	//削除処理
@@ -95,11 +97,6 @@ void CGame::Draw()
 {	
 	for (int i = 0; i < base.size(); i++)
 		if(base[i]->FLAG) base[i]->Draw();
-
-	//オブジェクト個数
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "Object_Count = %d", base.size());
-
-	DrawFormatString(0, 20, GetColor(255, 255, 255), "%d", map_num);
 }
 
 CGame::~CGame()

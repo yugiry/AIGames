@@ -3,6 +3,10 @@
 
 CFonUI::CFonUI()
 {
+	img = LoadGraph("image\\fon.png");
+	center = LoadGraph("image\\center.png");
+	stopper = LoadGraph("image\\stopper.png");
+
 	ImgWidth = 500;
 	ImgHeight = 500;
 
@@ -14,79 +18,124 @@ CFonUI::CFonUI()
 
 int CFonUI::Action(vector<unique_ptr<BaseVector>>& base)
 {
+	if (push_num)
+	{
+		if (!reverse)
+		{
+			if (radius <= rotato)
+			{
+				radius+=3;
+			}
+			if (radius >= rotato)reverse = true;
+		}
+		if (reverse)
+		{
+			if (radius > 0)
+			{
+				radius--;
+			}
+			if (radius == 0)
+			{
+				push_num = false;
+				reverse = false;
+			}
+		}
+	}
+
+	if (CheckHitKey(KEY_INPUT_RETURN))
+	{
+		dial.clear();
+	}
+
 	if (CheckHitKey(KEY_INPUT_F) && !push_f)
 	{
 		FLAG = false;
 	}
 	push_f = CheckHitKey(KEY_INPUT_F);
-
-	if (rotato == 0)
+	if (!push_num && dial.size() < 3)
 	{
-		for (int i = 0; i < NUM_END; i++)
+		if (CheckHitKey(KEY_INPUT_1))
 		{
-			if (push_num[i])
-			{
-				rotato = EMPTY_ROTATO + ROTATO_TIME * i;
-			}
+			dial.push_back(ONE);
+			push_num = true;
+			rotato = 85;
+		}
+		if (CheckHitKey(KEY_INPUT_2))
+		{
+			dial.push_back(TWO);
+			push_num = true;
+			rotato = 110;
+		}
+		if (CheckHitKey(KEY_INPUT_3))
+		{
+			dial.push_back(THREE);
+			push_num = true;
+			rotato = 135;
+		}
+		if (CheckHitKey(KEY_INPUT_4))
+		{
+			dial.push_back(FOUR);
+			push_num = true;
+			rotato = 155;
+		}
+		if (CheckHitKey(KEY_INPUT_5))
+		{
+			dial.push_back(FIVE);
+			push_num = true;
+			rotato = 185;
+		}
+		if (CheckHitKey(KEY_INPUT_6))
+		{
+			dial.push_back(SIX);
+			push_num = true;
+			rotato = 210;
+		}
+		if (CheckHitKey(KEY_INPUT_7))
+		{
+			dial.push_back(SEVEN);
+			push_num = true;
+			rotato = 235;
+		}
+		if (CheckHitKey(KEY_INPUT_8))
+		{
+			dial.push_back(EIGHT);
+			push_num = true;
+			rotato = 265;
+		}
+		if (CheckHitKey(KEY_INPUT_9))
+		{
+			dial.push_back(NINE);
+			push_num = true;
+			rotato = 290;
+		}
+		if (CheckHitKey(KEY_INPUT_0))
+		{
+			dial.push_back(ZERO);
+			push_num = true;
+			rotato = 315;
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_1) && !push_num[ONE])
-	{
-		dial.push_back(ONE);
-		push_num[ONE] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_2) && !push_num[TWO])
-	{
-		dial.push_back(TWO);
-		push_num[TWO] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_3) && !push_num[THREE])
-	{
-		dial.push_back(THREE);
-		push_num[THREE] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_4) && !push_num[FOUR])
-	{
-		dial.push_back(FOUR);
-		push_num[FOUR] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_5) && !push_num[FIVE])
-	{
-		dial.push_back(FIVE);
-		push_num[FIVE] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_6) && !push_num[SIX])
-	{
-		dial.push_back(SIX);
-		push_num[SIX] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_7) && !push_num[SEVEN])
-	{
-		dial.push_back(SEVEN);
-		push_num[SEVEN] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_8) && !push_num[EIGHT])
-	{
-		dial.push_back(EIGHT);
-		push_num[EIGHT] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_9) && !push_num[NINE])
-	{
-		dial.push_back(NINE);
-		push_num[NINE] = true;
-	}
-	if (CheckHitKey(KEY_INPUT_0) && !push_num[ZERO])
-	{
-		dial.push_back(ZERO);
-		push_num[ZERO] = true;
-	}
+	if (radius < 0)radius = 0;
 
+	//•“d˜b‚ª“®‚¢‚Ä‚¢‚È‚¢Žž
+	if (!push_num && !reverse && dial.size() == 3)
+	{
+		//“ü—Í‚³‚ê‚½‚R‚Â‚Ì”Ô†‚ª‚ ‚Á‚Ä‚¢‚é
+		if (dial[0] == 0 && dial[1] == 0 && dial[2] == 0)
+		{
+			return 20;
+		}
+	}
 
 	return 0;
 }
 
 void CFonUI::Draw()
 {
-	DrawBox(pos.x, pos.y, pos.x + ImgWidth, pos.y + ImgHeight, GetColor(0, 255, 0), true);
+	DrawGraph(pos.x, pos.y, img, true);
+
+	DrawRotaGraph(pos.x + ImgWidth / 2, pos.y + ImgHeight / 2 + 60, 1, RADIAN(radius), center, true);
+
+	DrawGraph(pos.x + ImgWidth / 2 + 30, pos.y + ImgHeight / 2 + 90, stopper, true);
 }

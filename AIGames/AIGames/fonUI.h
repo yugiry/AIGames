@@ -27,10 +27,15 @@ public:
 		NUM_END
 	};
 
+	int center{ -1 };
+	int stopper{ -1 };
+
 	int rotato{ 0 };
+	int radius{ 0 };
 
 	bool push_f{ true };
-	bool push_num[NUM_END]{ false };
+	bool push_num{ false };
+	bool reverse{ false };
 
 	vector<int> dial;
 };

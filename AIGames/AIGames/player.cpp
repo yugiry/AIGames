@@ -210,6 +210,4 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 void CPlayer::Draw()
 {
 	DrawGraph(pos.x, pos.y, img, true);
-
-	DrawFormatString(0, 40, GetColor(255, 255, 255), "x=%f,y=%f", pos.x, pos.y);
 }
