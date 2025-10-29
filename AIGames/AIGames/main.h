@@ -54,6 +54,7 @@ struct Vector3 {
 	 FON,
 	 DOOR,
 	 DESKS,
+	 PAPER,
  };
 
 //ƒJƒƒ‰î•ñƒNƒ‰ƒX(main.h)

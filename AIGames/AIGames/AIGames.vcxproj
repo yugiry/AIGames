@@ -166,6 +166,8 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="objBase.h" />
     <ClInclude Include="objChar.h" />
+    <ClInclude Include="paper.h" />
+    <ClInclude Include="paperUI.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Scene_Base.h" />
     <ClInclude Include="Scene_Manager.h" />
@@ -182,6 +184,8 @@
     <ClCompile Include="library_function.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="paper.cpp" />
+    <ClCompile Include="paperUI.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>

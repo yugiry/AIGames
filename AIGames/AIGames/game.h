@@ -28,5 +28,8 @@ public:
 
 	CMap* map;
 
+	bool clear{ false };
+	bool clear_scene{ false };
+
 	//CCamera* camera;//カメラオブジェクト
 };

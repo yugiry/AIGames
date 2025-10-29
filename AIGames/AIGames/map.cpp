@@ -3,6 +3,7 @@
 
 #include "back.h"
 #include "door.h"
+#include "paper.h"
 
 #include <fstream>
 #include <sstream>
@@ -87,6 +88,16 @@ void CMap::MapCreation(vector<unique_ptr<BaseVector>>& base, int map_num)
 			{
 				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 19, img));
 				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, map[map_num][x + y * MAP_WIDTH], img));
+			}
+			else if (map[map_num][x + y * MAP_WIDTH] == 28)
+			{
+				base.emplace_back((unique_ptr<BaseVector>)new CPaper(p));
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 9, img));
+			}
+			else if (map[map_num][x + y * MAP_WIDTH] == 29)
+			{
+				base.emplace_back((unique_ptr<BaseVector>)new CPaper(p));
+				base.emplace_back((unique_ptr<BaseVector>)new CBack(p, 1, img));
 			}
 			else
 			{

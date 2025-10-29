@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "Scene_Manager.h"
 #include "game.h"
+#include "title.h"
 #include "function.h"
 
 #include "player.h"
@@ -74,7 +75,12 @@ int CGame::Update(){
 			map_num = 2;
 			map->MapCreation(base, map_num);
 			break;
-		case 20://ゲームクリア
+		case 19://ゲームクリア
+			if (clear)
+				clear_scene = true;
+			break;
+		case 20://鍵クリア
+			clear = true;
 			break;
 		}
 
@@ -85,9 +91,11 @@ int CGame::Update(){
 	//オブジェクトのソート処理(クイックソート)
 	ObjSort_Quick(base, 0, base.size() - 1);
 
-	//listオブジェクトの更新処理	
-	//for (auto i = base.begin(); i != base.end(); i++)
-	//	(*i)->Action(base);
+	if (clear_scene)
+	{
+		manager->Scene_Delete();
+		manager->scene = new CTitle(manager);
+	}
 
 	return 0;
 }
