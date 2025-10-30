@@ -1,6 +1,7 @@
 #pragma once
 #include "player.h"
 #include "fonUI.h"
+#include "paperUI.h"
 #include "function.h"
 
 int SPEED = 4.0f;
@@ -17,7 +18,7 @@ CPlayer::CPlayer()
 
 	ID = PLAYER;
 
-	pri = 2;
+	pri = 4;
 }
 
 CPlayer::CPlayer(Point p)
@@ -28,7 +29,7 @@ CPlayer::CPlayer(Point p)
 
 	ID = PLAYER;
 
-	pri = 2;
+	pri = 4;
 }
 
 int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
@@ -123,41 +124,66 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 				push_f = CheckHitKey(KEY_INPUT_F);
 			}
 		}
+		if ((*i)->ID == PAPER)
+		{
+			if (HitCheck_box(pos.x - ImgWidth / 2, pos.y - ImgHeight / 2, (*i)->pos.x, (*i)->pos.y, ImgWidth * 2, ImgHeight * 2, (*i)->ImgWidth, (*i)->ImgHeight))
+			{
+				if (CheckHitKey(KEY_INPUT_F) && !push_f)
+				{
+					if (now_scene == 7)
+					{
+						base.emplace_back((unique_ptr<BaseVector>)new CPaperUI(0));
+					}
+					if (now_scene == 8)
+					{
+						base.emplace_back((unique_ptr<BaseVector>)new CPaperUI(1));
+					}
+					if (now_scene == 9)
+					{
+						base.emplace_back((unique_ptr<BaseVector>)new CPaperUI(2));
+					}
+					open_UI = true;
+				}
+				push_f = CheckHitKey(KEY_INPUT_F);
+			}
+		}
 		if ((*i)->ID == DOOR)
 		{
 			if (HitCheck_box(pos.x + vec.x, pos.y + vec.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight))
 			{
 				if ((*i)->vec.x == 1)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 448; return 5; }
-					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; return 12; }
+					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 448; now_scene = 6; return 5; }
+					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; now_scene = 0; return 12; }
 				}
 				if ((*i)->vec.x == 2)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 448; pos.y = 448; return 6; }
-					if ((*i)->vec.y == 2) { pos.x = 192; pos.y = 256; return 13; }
+					if ((*i)->vec.y == 1) { pos.x = 448; pos.y = 448; now_scene = 7; return 6; }
+					if ((*i)->vec.y == 2) { pos.x = 192; pos.y = 256; now_scene = 2; return 13; }
 				}
 				if ((*i)->vec.x == 3)
 				{
 					if ((*i)->vec.y == 1) { pos.x = 96; pos.y = 384; }
 					if ((*i)->vec.y == 2) { pos.x = 544; pos.y = 384; }
+					now_scene = 8;
 					return 7;
 				}
 				if ((*i)->vec.x == 4)
 				{
 					if ((*i)->vec.y == 1) { pos.x = 96; pos.y = 384; }
 					if ((*i)->vec.y == 2) { pos.x = 544; pos.y = 384; }
+					now_scene = 9;
 					return 8;
 				}
 				if ((*i)->vec.x == 5)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 256; return 9; }
-					if ((*i)->vec.y == 2) { pos.x = 256; pos.y = 256; return 10; }
+					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 256; now_scene = 3; return 9; }
+					if ((*i)->vec.y == 2) { pos.x = 256; pos.y = 256; now_scene = 4; return 10; }
 				}
 				if ((*i)->vec.x == 6)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 416; pos.y = 256; return 10; }
-					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; return 11; }
+					if ((*i)->vec.y == 1) { pos.x = 416; pos.y = 256; now_scene = 4; return 10; }
+					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; now_scene = 5; return 11; }
 				}
 			}
 		}
@@ -169,7 +195,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 			Point late{ pos.x + vec.x,pos.y };
 			for (auto i = base.begin(); i != base.end(); i++)
 			{
-				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID == FON || (*i)->ID == DOOR || (*i)->ID == DESKS)
+				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID == FON || (*i)->ID == DOOR || (*i)->ID == DESKS || (*i)->ID == PAPER)
 				{
 
 					if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
@@ -184,7 +210,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 			Point late{ pos.x,pos.y + vec.y };
 			for (auto i = base.begin(); i != base.end(); i++)
 			{
-				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID == FON || (*i)->ID == DOOR || (*i)->ID == DESKS)
+				if ((*i)->ID == WALL || (*i)->ID == DARK || (*i)->ID == FON || (*i)->ID == DOOR || (*i)->ID == DESKS || (*i)->ID == PAPER)
 				{
 
 					if (HitCheck_box(late.x, late.y, (*i)->pos.x, (*i)->pos.y, ImgWidth, ImgHeight, (*i)->ImgWidth, (*i)->ImgHeight))
@@ -196,13 +222,23 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 		}
 	}
 
+
+
 	pos.x += vec.x;
 	pos.y += vec.y;
 
 	if (pos.x < 0)pos.x = 0;
 	if (pos.x > WINDOW_WIDTH - ImgWidth)pos.x = WINDOW_WIDTH - ImgWidth;
 	if (pos.y < 0)pos.y = 0;
+<<<<<<< HEAD
 	if (pos.y > WINDOW_HEIGHT - ImgHeight) { pos.y = WINDOW_HEIGHT - ImgHeight * 2; return 19; }
+=======
+	if (pos.y > WINDOW_HEIGHT - ImgHeight)
+	{
+		pos.y = WINDOW_HEIGHT - ImgHeight;
+		return 19;
+	}
+>>>>>>> 9fc6e0452f37fe2b04924685341041fcf8c7bb1a
 
 	return 0;
 }

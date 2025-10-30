@@ -13,7 +13,7 @@ CFonUI::CFonUI()
 	pos.x = WINDOW_WIDTH / 2 - ImgWidth / 2;
 	pos.y = WINDOW_HEIGHT / 2 - ImgHeight / 2;
 
-	pri = 3;
+	pri = 5;
 }
 
 int CFonUI::Action(vector<unique_ptr<BaseVector>>& base)
@@ -122,7 +122,7 @@ int CFonUI::Action(vector<unique_ptr<BaseVector>>& base)
 	if (!push_num && !reverse && dial.size() == 3)
 	{
 		//ì¸óÕÇ≥ÇÍÇΩÇRÇ¬ÇÃî‘çÜÇ™Ç†Ç¡ÇƒÇ¢ÇÈ
-		if (dial[0] == 0 && dial[1] == 0 && dial[2] == 0)
+		if (dial[0] == 1 && dial[1] == 2 && dial[2] == 5)
 		{
 			return 20;
 		}

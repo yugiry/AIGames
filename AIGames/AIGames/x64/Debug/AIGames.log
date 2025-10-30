@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  3D_function.cpp
 C:\dxlib\DxLib.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
   (ソース ファイル '3D_function.cpp' をコンパイルしています)
@@ -1358,4 +1359,11 @@ C:\dxlib\DxLib.h(5581,1): warning C4819: ファイルは、現在のコード �
   (ソース ファイル 'title.cpp' をコンパイルしています)
   
   コードを生成中...
+=======
+﻿  paperUI.cpp
+C:\Users\GA2A\Desktop\AIGame\AIGames\AIGames\paperUI.cpp(9,27): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\GA2A\Desktop\AIGame\AIGames\AIGames\paperUI.cpp(10,28): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\GA2A\Desktop\AIGame\AIGames\AIGames\paperUI.cpp(41,22): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\GA2A\Desktop\AIGame\AIGames\AIGames\paperUI.cpp(41,15): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+>>>>>>> 9fc6e0452f37fe2b04924685341041fcf8c7bb1a
   AIGames.vcxproj -> C:\Users\GA2A\Desktop\AIGame\AIGames\x64\Debug\AIGames.exe
