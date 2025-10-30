@@ -74,7 +74,9 @@ int CGame::Update(){
 			map_num = 2;
 			map->MapCreation(base, map_num);
 			break;
-		case 20://ゲームクリア
+		case 19://クリア確認
+			break;
+		case 20://クリア判定を立てる
 			break;
 		}
 

@@ -202,7 +202,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 	if (pos.x < 0)pos.x = 0;
 	if (pos.x > WINDOW_WIDTH - ImgWidth)pos.x = WINDOW_WIDTH - ImgWidth;
 	if (pos.y < 0)pos.y = 0;
-	if (pos.y > WINDOW_HEIGHT - ImgHeight)pos.y = WINDOW_HEIGHT - ImgHeight;
+	if (pos.y > WINDOW_HEIGHT - ImgHeight) { pos.y = WINDOW_HEIGHT - ImgHeight * 2; return 19; }
 
 	return 0;
 }
