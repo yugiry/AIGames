@@ -9,6 +9,10 @@
 
 //コンストラクタ
 CGame::CGame(CManager* p) :CScene(p){
+	sound = LoadSoundMem("sound\\game.mp3");
+	chaim = LoadSoundMem("sound\\chaim.mp3");
+	PlaySoundMem(sound, DX_PLAYTYPE_LOOP);
+
 	map = new CMap();
 
 	map->LoadMap();
@@ -75,18 +79,13 @@ int CGame::Update(){
 			map_num = 2;
 			map->MapCreation(base, map_num);
 			break;
-<<<<<<< HEAD
-		case 19://クリア確認
-			break;
-		case 20://クリア判定を立てる
-=======
 		case 19://ゲームクリア
 			if (clear)
 				clear_scene = true;
 			break;
 		case 20://鍵クリア
 			clear = true;
->>>>>>> 9fc6e0452f37fe2b04924685341041fcf8c7bb1a
+			PlaySoundMem(chaim, DX_PLAYTYPE_BACK);
 			break;
 		}
 
@@ -99,6 +98,7 @@ int CGame::Update(){
 
 	if (clear_scene)
 	{
+		StopSoundMem(sound);
 		manager->Scene_Delete();
 		manager->scene = new CTitle(manager);
 	}
@@ -115,5 +115,6 @@ void CGame::Draw()
 
 CGame::~CGame()
 {
-
+	DeleteSoundMem(sound);
+	DeleteSoundMem(chaim);
 }

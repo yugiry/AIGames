@@ -12,4 +12,6 @@ public:
 
 	int Update();
 	void Draw();
+
+	int sound{ -1 };
 };

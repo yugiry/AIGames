@@ -7,6 +7,9 @@ CFonUI::CFonUI()
 	center = LoadGraph("image\\center.png");
 	stopper = LoadGraph("image\\stopper.png");
 
+	sound[0] = LoadSoundMem("sound\\phonecut.mp3");
+	sound[1] = LoadSoundMem("sound\\cancel.mp3");
+
 	ImgWidth = 500;
 	ImgHeight = 500;
 
@@ -42,10 +45,14 @@ int CFonUI::Action(vector<unique_ptr<BaseVector>>& base)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_RETURN))
+	if (CheckHitKey(KEY_INPUT_RETURN) && !push_enter)
 	{
 		dial.clear();
+		wrongsound = false;
+		StopSoundMem(sound[1]);
+		PlaySoundMem(sound[0], DX_PLAYTYPE_BACK);
 	}
+	push_enter = CheckHitKey(KEY_INPUT_RETURN);
 
 	if (CheckHitKey(KEY_INPUT_F) && !push_f)
 	{
@@ -125,6 +132,11 @@ int CFonUI::Action(vector<unique_ptr<BaseVector>>& base)
 		if (dial[0] == 1 && dial[1] == 2 && dial[2] == 5)
 		{
 			return 20;
+		}
+		else if (!wrongsound)
+		{
+			wrongsound = true;
+			PlaySoundMem(sound[1], DX_PLAYTYPE_BACK);
 		}
 	}
 

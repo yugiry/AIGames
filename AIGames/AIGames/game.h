@@ -24,6 +24,9 @@ public:
 	int Update();//XVˆ—
 	void Draw();//•`‰æˆ—
 
+	int sound{ -1 };
+	int chaim{ -1 };
+
 	int map_num{ 1 };
 
 	CMap* map;

@@ -15,6 +15,9 @@ CPlayer::CPlayer()
 	pos.y = WINDOW_HEIGHT / 2 - ImgHeight / 2;
 
 	img = LoadGraph("image\\player.png");
+	sound[0] = LoadSoundMem("sound\\door.mp3");
+	sound[1] = LoadSoundMem("sound\\paper.mp3");
+	sound[2] = LoadSoundMem("sound\\stair.mp3");
 
 	ID = PLAYER;
 
@@ -86,6 +89,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 							if (now_scene == 0)pos.x = ImgWidth * 2; pos.y = 256;
 							if (now_scene == 2)pos.x = WINDOW_WIDTH - ImgWidth * 2; pos.y = 256;
 							now_scene += 3;
+							PlaySoundMem(sound[2], DX_PLAYTYPE_NORMAL);
 							return 3;
 						}
 					}
@@ -105,6 +109,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 							if (now_scene == 0)pos.x = ImgWidth * 2; pos.y = 256;
 							if (now_scene == 2)pos.x = WINDOW_WIDTH - ImgWidth * 2; pos.y = 256;
 							now_scene -= 3;
+							PlaySoundMem(sound[2], DX_PLAYTYPE_NORMAL);
 							return 4;
 						}
 					}
@@ -130,6 +135,7 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 			{
 				if (CheckHitKey(KEY_INPUT_F) && !push_f)
 				{
+					PlaySoundMem(sound[1], DX_PLAYTYPE_BACK);
 					if (now_scene == 7)
 					{
 						base.emplace_back((unique_ptr<BaseVector>)new CPaperUI(0));
@@ -153,19 +159,20 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 			{
 				if ((*i)->vec.x == 1)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 448; now_scene = 6; return 5; }
-					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; now_scene = 0; return 12; }
+					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 448; now_scene = 6; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 5; }
+					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; now_scene = 0; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 12; }
 				}
 				if ((*i)->vec.x == 2)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 448; pos.y = 448; now_scene = 7; return 6; }
-					if ((*i)->vec.y == 2) { pos.x = 192; pos.y = 256; now_scene = 2; return 13; }
+					if ((*i)->vec.y == 1) { pos.x = 448; pos.y = 448; now_scene = 7; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 6; }
+					if ((*i)->vec.y == 2) { pos.x = 192; pos.y = 256; now_scene = 2; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 13; }
 				}
 				if ((*i)->vec.x == 3)
 				{
 					if ((*i)->vec.y == 1) { pos.x = 96; pos.y = 384; }
 					if ((*i)->vec.y == 2) { pos.x = 544; pos.y = 384; }
 					now_scene = 8;
+					PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL);
 					return 7;
 				}
 				if ((*i)->vec.x == 4)
@@ -173,17 +180,18 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 					if ((*i)->vec.y == 1) { pos.x = 96; pos.y = 384; }
 					if ((*i)->vec.y == 2) { pos.x = 544; pos.y = 384; }
 					now_scene = 9;
+					PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL);
 					return 8;
 				}
 				if ((*i)->vec.x == 5)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 256; now_scene = 3; return 9; }
-					if ((*i)->vec.y == 2) { pos.x = 256; pos.y = 256; now_scene = 4; return 10; }
+					if ((*i)->vec.y == 1) { pos.x = 192; pos.y = 256; now_scene = 3; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 9; }
+					if ((*i)->vec.y == 2) { pos.x = 256; pos.y = 256; now_scene = 4; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 10; }
 				}
 				if ((*i)->vec.x == 6)
 				{
-					if ((*i)->vec.y == 1) { pos.x = 416; pos.y = 256; now_scene = 4; return 10; }
-					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; now_scene = 5; return 11; }
+					if ((*i)->vec.y == 1) { pos.x = 416; pos.y = 256; now_scene = 4; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 10; }
+					if ((*i)->vec.y == 2) { pos.x = 448; pos.y = 256; now_scene = 5; PlaySoundMem(sound[0], DX_PLAYTYPE_NORMAL); return 11; }
 				}
 			}
 		}
@@ -230,15 +238,12 @@ int CPlayer::Action(vector<unique_ptr<BaseVector>>& base)
 	if (pos.x < 0)pos.x = 0;
 	if (pos.x > WINDOW_WIDTH - ImgWidth)pos.x = WINDOW_WIDTH - ImgWidth;
 	if (pos.y < 0)pos.y = 0;
-<<<<<<< HEAD
-	if (pos.y > WINDOW_HEIGHT - ImgHeight) { pos.y = WINDOW_HEIGHT - ImgHeight * 2; return 19; }
-=======
 	if (pos.y > WINDOW_HEIGHT - ImgHeight)
 	{
 		pos.y = WINDOW_HEIGHT - ImgHeight;
-		return 19;
+		if (now_scene == 1)
+			return 19;
 	}
->>>>>>> 9fc6e0452f37fe2b04924685341041fcf8c7bb1a
 
 	return 0;
 }

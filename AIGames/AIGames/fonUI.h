@@ -35,7 +35,9 @@ public:
 
 	bool push_f{ true };
 	bool push_num{ false };
+	bool push_enter{ false };
 	bool reverse{ false };
+	bool wrongsound{ false };
 
 	vector<int> dial;
 };
